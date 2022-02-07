@@ -2,17 +2,18 @@ from bs4 import BeautifulSoup
 import requests
 import pandas as pd
 
-page = requests.get("https://www.linkedin.com/jobs/search/?currentJobId=2802940470&geoId=103644278&keywords=software%20developer%20intern&location=United%20States")
+page = requests.get("https://www.linkedin.com/jobs/search?keywords=Data%20Science&location=New%20York%2C%20New%20York%2C%20United%20States&geoId=102571732&trk=public_jobs_jobs-search-bar_search-submit&position=1&pageNum=0")
 
 soup = BeautifulSoup(page.content, 'html5lib')
 
-#file to store contents of soup, just to make sure it's getting the whole page
-f = open("pagecontent.txt", "x")
+job_count = soup.find(class_="results-context-header__job-count")
 
-f.write(str(soup))
+right_section = soup.find(class_="hidden-nested-link")
 
-f.close()
+print(right_section.get_text())
 
-details=soup.find(id="job-details")
+print(job_count.get_text())
+
+#details=soup.find(id="job-details")
 
 #print(list(details.children))
